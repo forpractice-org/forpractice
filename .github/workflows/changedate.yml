@@ -1,0 +1,24 @@
+  name: Issue Automation
+
+on:
+  issues:
+    types: [closed, reopened]
+
+jobs:
+  set_end_date:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Set End Date
+      if: github.event.action == 'closed'
+      run: |
+        curl -X PATCH -H "Authorization: token ${{ secrets.PRACTICE_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }} \
+          -d '{"end_date": "$(date +%Y-%m-%d)"}'
+    - name: Unset End Date
+      if: github.event.action == 'reopened'
+      run: |
+        curl -X PATCH -H "Authorization: token ${{ secrets.PRACTICE_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }} \
+          -d '{"end_date": null}'
