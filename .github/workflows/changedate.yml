@@ -58,12 +58,14 @@ jobs:
           item_id: ${{ steps.get-project-item-id.outputs.project-item-id }}
           
       - name: Echo variable value
-        run: cat project_data.json
-             echo 'Value of project id:' $PROJECT_ID
+        run: echo 'Value of project id:' $PROJECT_ID
              echo 'Value of date field id:' $DATE_FIELD_ID
              echo 'Value of date:' $DATE
              echo 'Value of item id:' $ITEM_ID
              
+             
+      - name: Echo project_data.json
+        run: cat project_data.json
 
         
       - name: Set fields
