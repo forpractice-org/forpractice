@@ -59,7 +59,7 @@ jobs:
         run: echo 'Value of project id:' $PROJECT_ID
              echo 'Value of date field id:' $DATE_FIELD_ID
              echo 'Value of date:' $DATE
-             echo 'Value of item id:' $ITEM_ID
+             echo 'Value of item id:' ${{ steps.get-project-item-id.outputs.project-item-id }}
              
              
       - name: Echo project_data.json
