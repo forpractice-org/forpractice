@@ -47,13 +47,19 @@ jobs:
         run: echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
         
       - name: Get item data
+        id: get-project-item-id
         uses: monry/actions-get-project-item-id@v2
         with:
           github-token: ${{ secrets.PRACTICE_TOKEN }}
           project-id: $PROJECT_ID
           issue-id: ${{ github.event.issue.node_id }}
-      - run: |
-          echo '${{ steps.get-project-item-id.outputs.project-item-id }}'
+
+      - name: Echo item id
+        run: echo 'ITEM_ID='$item_id >> $GITHUB_ENV
+        env:
+          item_id: ${{ steps.get-project-item-id.outputs.project-item-id }}
+        
+
 
 
       - name: Set fields
