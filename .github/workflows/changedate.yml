@@ -5,8 +5,6 @@ on:
     types:
       - closed
 
-permissions:
-  repository-projects: write
   
 jobs:
   track_issue:
@@ -15,8 +13,8 @@ jobs:
       - name: Get project data
         env:
           GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }} 
-          ORGANIZATION: rakshitgondwal
-          PROJECT_NUMBER: 2
+          ORGANIZATION: forpractice-org
+          PROJECT_NUMBER: 1
         run: |
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
