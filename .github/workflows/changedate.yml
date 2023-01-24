@@ -53,9 +53,7 @@ jobs:
           issue-id: ${{ github.event.issue.node_id }}
 
       - name: Echo item id
-        run: echo 'ITEM_ID='$item_id >> $GITHUB_ENV
-        env:
-          item_id: ${{ steps.get-project-item-id.outputs.project-item-id }}
+        run: echo 'ITEM_ID='${{ steps.get-project-item-id.outputs.project-item-id }} >> $GITHUB_ENV
           
       - name: Echo variable value
         run: echo 'Value of project id:' $PROJECT_ID
