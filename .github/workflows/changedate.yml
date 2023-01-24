@@ -4,8 +4,6 @@ on:
   issues:
     types:
       - closed
-
-  
 jobs:
   track_issue:
     runs-on: ubuntu-22.04
@@ -59,9 +57,6 @@ jobs:
         env:
           item_id: ${{ steps.get-project-item-id.outputs.project-item-id }}
         
-
-
-
       - name: Set fields
         env:
           GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }} 
