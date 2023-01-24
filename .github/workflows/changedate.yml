@@ -2,8 +2,7 @@ name: Set the End Date in the project
 
 on:
   issues:
-    types:
-      - closed
+    types: [closed, reopened]
 jobs:
   track_issue:
     runs-on: ubuntu-22.04
@@ -68,7 +67,8 @@ jobs:
         run: cat project_data.json
 
         
-      - name: Set fields
+      - name: Check if issue is closed
+        if: github.event.action == 'closed'
         env:
           GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }} 
         run: |
@@ -92,3 +92,29 @@ jobs:
                 }
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
+            
+      - name: Check if issue is reopened
+        if: github.event.action == 'reopened'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }} 
+        run: |
+          gh api graphql -f query='
+            mutation (
+              $project: ID!
+              $item: ID!
+              $date_field: ID!
+              $date_value: Date!
+            ) {
+              set_end_date: updateProjectV2ItemFieldValue(input: {
+                projectId: $project
+                itemId: $item
+                fieldId: $date_field
+                value: { 
+                  date: null
+                }
+              }) {
+                projectV2Item {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent   
