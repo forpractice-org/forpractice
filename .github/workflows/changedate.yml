@@ -108,7 +108,9 @@ jobs:
                 projectId: $project
                 itemId: $item
                 fieldId: $date_field
-                value: ""
+                value: { 
+                  date: 0000-00-00
+                }
               }) {
                 projectV2Item {
                   id
