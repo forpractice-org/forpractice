@@ -42,7 +42,7 @@ jobs:
       
       - name: Get date
         run: 
-            echo 'Issue number:'${{ github.event.issue.number }}
+            echo 'Issue number:'${{ github.event.issue.node_id }}
             echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
             
       - name: Install curl
