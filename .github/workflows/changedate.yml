@@ -42,9 +42,7 @@ jobs:
           echo 'ITEM_ID='${{  github.event.issue.node_id }} >> $GITHUB_ENV
       
       - name: Get date
-        run: 
-            echo 'Issue number:'${{ github.event.issue.node_id }}
-            echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        run: echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
 
           
       - name: Echo variable value
