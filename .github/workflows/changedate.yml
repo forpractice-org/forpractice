@@ -48,10 +48,8 @@ jobs:
         uses: monry/actions-get-project-item-id@v2
         with:
           github-token: ${{ secrets.PRACTICE_TOKEN }}
-          project-owner: 'forpractice-org'
-          project-number: 1
-          issue-repository: 'forpractice-org/forpractice'
-          issue-number: ${{ github.event.number }}
+          project-id: $PROJECT_ID
+          issue-id: ${{ github.event.issue.node_id }}
 
       - name: Echo item id
         run: echo 'ITEM_ID='${{ steps.get-project-item-id.outputs.project-item-id }} >> $GITHUB_ENV
