@@ -44,6 +44,9 @@ jobs:
         run: 
             echo ${{ github.event.number }}
             echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+            
+      - name: Install curl
+        run: sudo apt-get install curl -y     
         
       - name: Get item data
         run: |
