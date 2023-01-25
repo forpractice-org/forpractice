@@ -46,7 +46,9 @@ jobs:
             echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
             
       - name: Install curl
-        run: sudo apt-get install curl -y     
+        run: |
+          sudo apt-get install curl -y    
+          echo "export PATH=$PATH:/usr/local/bin" >> $GITHUB_ENV
         
       - name: Get item data
         run: |
