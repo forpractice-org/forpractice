@@ -39,10 +39,25 @@ jobs:
             }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
           echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
           echo 'DATE_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "End Date") | .id' project_data.json) >> $GITHUB_ENV
-          echo 'ITEM_ID='${{  github.event.issue.node_id }} >> $GITHUB_ENV
       
       - name: Get date
         run: echo "DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
+        
+      - name: Add item id
+        env:
+          GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        run: |
+          item_id="$( gh api graphql -f query='
+            mutation($project:ID!, $issue:ID!) {
+              addProjectV2ItemById(input: {projectId: $project, contentId: $issue}) {
+                item {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectV2ItemById.item.id')"
+
+          echo 'ITEM_ID='$item_id >> $GITHUB_ENV
 
           
       - name: Echo variable value
