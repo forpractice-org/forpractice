@@ -51,6 +51,7 @@ jobs:
           echo "export PATH=$PATH:/usr/local/bin" >> $GITHUB_ENV
         
       - name: Get item data
+        shell: bash
         run: |
           curl\ 
           -H "Accept: application/vnd.github+json" 
