@@ -69,23 +69,29 @@ jobs:
       
       - name: Check if issue is closed
         if: github.event.action == 'closed'
-        uses: actions/github-script@v2
         env:
-         GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
-        with:
-         script: |
-          const octokit = require("@octokit/rest")();
-          octokit.authenticate({
-            type: "token",
-            token: process.env.GITHUB_TOKEN,
-          });
-
-          const { data } = await octokit.repos.get({
-            owner: "OWNER",
-            repo: "REPO",
-          });
-
-          console.log(data.date_field);
+         GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }} 
+        run: |
+          gh api graphql -f query='
+            mutation (
+              $project: ID!
+              $item: ID!
+              $date_field: ID!
+              $date_value: Date!
+            ) {
+              set_end_date: updateProjectV2ItemFieldValue(input: {
+                projectId: $project
+                itemId: $item
+                fieldId: $date_field
+                value: { 
+                  date: $date_value
+                }
+              }) {
+                projectV2Item {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silen
             
       - name: Check if issue is reopened
         if: github.event.action == 'reopened'
