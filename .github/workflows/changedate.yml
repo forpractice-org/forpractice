@@ -3,13 +3,15 @@ name: Set the End Date in the project
 on:
   issues:
     types: [closed]
+permissions:
+  repository-projects: read
 jobs:
   track_issue:
     runs-on: ubuntu-22.04
     steps:
       - name: Get project data
         env:
-          GITHUB_TOKEN: ${{ secrets.WITHOUT_REPO }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           ORGANIZATION: forpractice-org
           PROJECT_NUMBER: 1
         run: |
@@ -45,7 +47,7 @@ jobs:
 
       - name: Add item id
         env:
-          GITHUB_TOKEN: ${{ secrets.WITHOUT_REPO }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
           ISSUE_ID: ${{ github.event.issue.node_id }}
         run: |
           item_id="$( gh api graphql -f query='
@@ -60,7 +62,7 @@ jobs:
                          
       - name: Set End Date
         env:
-         GITHUB_TOKEN: ${{ secrets.WITHOUT_REPO }} 
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         run: |
           gh api graphql -f query='
             mutation (
