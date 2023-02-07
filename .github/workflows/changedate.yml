@@ -10,8 +10,8 @@ jobs:
       - name: Get project data
         env:
           GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }} 
-          ORGANIZATION: keptn
-          PROJECT_NUMBER: 18
+          ORGANIZATION: forpractice-org
+          PROJECT_NUMBER: 1
         run: |
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
