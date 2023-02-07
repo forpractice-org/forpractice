@@ -6,7 +6,7 @@ on:
 jobs:
   track_issue:
     runs-on: ubuntu-22.04
-    permissions: write-all
+    permissions: read-all write-all
     steps:
       - name: Get project data
         env:
