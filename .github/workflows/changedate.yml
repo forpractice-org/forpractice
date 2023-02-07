@@ -3,11 +3,11 @@ name: Set the End Date in the project
 on:
   issues:
     types: [closed]
-permissions:
-  repository-projects: read|write
 jobs:
   track_issue:
     runs-on: ubuntu-22.04
+    permissions:
+     repository-projects: write
     steps:
       - name: Get project data
         env:
