@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Get project data
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.WITHOUT_REPO }} 
           ORGANIZATION: forpractice-org
           PROJECT_NUMBER: 1
         run: |
@@ -47,7 +47,7 @@ jobs:
 
       - name: Add item id
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.WITHOUT_REPO}}
           ISSUE_ID: ${{ github.event.issue.node_id }}
         run: |
           query {
@@ -61,7 +61,7 @@ jobs:
                          
       - name: Set End Date
         env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+         GITHUB_TOKEN: ${{ secrets.WITHOUT_REPO }} 
         run: |
           gh api graphql -f query='
             mutation (
