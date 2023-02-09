@@ -80,3 +80,4 @@ jobs:
                 }
               }
             }' -f project=$PROJECT_ID -f item=$ITEM_ID -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
+
