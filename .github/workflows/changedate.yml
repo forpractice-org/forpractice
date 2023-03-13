@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Get project data for start date
         env:
-          GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
           ORGANIZATION: forpractice-org
           PROJECT_NUMBER: 1
         if: ${{ github.event.action == 'assigned' }}
@@ -43,7 +43,7 @@ jobs:
 
       - name: Get project data for end date
         env:
-          GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
           ORGANIZATION: forpractice-org
           PROJECT_NUMBER: 1
         if: ${{ github.event.action == 'closed' }}  
@@ -81,7 +81,7 @@ jobs:
         
       - name: Add item id
         env:
-          GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_PROJECT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
           ISSUE_ID: ${{ github.event.issue.node_id }}
         run: |
           item_id="$( gh api graphql -f query='
@@ -96,7 +96,7 @@ jobs:
                          
       - name: Set Start Date
         env:
-         GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_PROJECT_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
         run: |
           gh api graphql -f query='
             mutation (
@@ -121,7 +121,7 @@ jobs:
 
       - name: Set End Date
         env:
-         GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_PROJECT_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
         run: |
           gh api graphql -f query='
             mutation (
