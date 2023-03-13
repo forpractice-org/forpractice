@@ -96,7 +96,8 @@ jobs:
                          
       - name: Set Start Date
         env:
-         GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}  
+        if: ${{ github.event.action == 'assigned' }}
         run: |
           gh api graphql -f query='
             mutation (
@@ -122,6 +123,7 @@ jobs:
       - name: Set End Date
         env:
          GITHUB_TOKEN: ${{ secrets.PRACTICE_TOKEN }}
+        if: ${{ github.event.action == 'closed' }}   
         run: |
           gh api graphql -f query='
             mutation (
